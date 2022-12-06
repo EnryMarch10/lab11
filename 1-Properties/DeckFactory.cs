@@ -25,10 +25,7 @@ namespace Properties
             set => this.names = value.ToArray();
         }
 
-        public int DeckSize
-        {
-            get => this.names.Length * this.seeds.Length;
-        }
+        public int DeckSize => this.names.Length * this.seeds.Length;
 
         public ISet<Card> Deck
         {

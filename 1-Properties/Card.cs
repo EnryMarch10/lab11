@@ -32,20 +32,11 @@ namespace Properties
         {
         }
 
-        public string Seed
-        {
-            get => this.seed;
-        }
+        public string Seed => this.seed;
 
-        public string Name
-        {
-            get => this.name;
-        }
+        public string Name => this.name;
 
-        public int Ordinal
-        {
-            get => this.ordinal;
-        }
+        public int Ordinal => this.ordinal;
 
         /// <inheritdoc cref="object.ToString"/>
         public override string ToString()
