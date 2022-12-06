@@ -7,10 +7,6 @@ namespace Properties
     /// </summary>
     public class Card
     {
-        private readonly string seed;
-        private readonly string name;
-        private readonly int ordinal;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Card"/> class.
         /// </summary>
@@ -19,9 +15,9 @@ namespace Properties
         /// <param name="ordinal">the ordinal number of the card.</param>
         public Card(string name, string seed, int ordinal)
         {
-            this.name = name;
-            this.ordinal = ordinal;
-            this.seed = seed;
+            this.Name = name;
+            this.Ordinal = ordinal;
+            this.Seed = seed;
         }
 
         /// <summary>
@@ -36,64 +32,37 @@ namespace Properties
         /// <summary>
         /// Gets the seed of the card.
         /// </summary>
-        public string Seed
-        {
-            get { return this.seed; }
-        }
+        public string Seed { get; }
 
         /// <summary>
         /// Gets the name of the card.
         /// </summary>
-        public string Name
-        {
-            get => this.name;
-        }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the ordinal number of the card.
         /// </summary>
-        public int Ordinal => this.ordinal;
+        public int Ordinal { get; }
 
         /// <inheritdoc cref="object.ToString"/>
-        public override string ToString()
-        {
-            // TODO understand string interpolation
-            return $"{this.GetType().Name}(Name={this.Name}, Seed={this.Seed}, Ordinal={this.Ordinal})";
-        }
+        public override string ToString() => // TODO understand string interpolation
+            $"{GetType().Name}(Name={Name}, Seed={Seed}, Ordinal={Ordinal})";
 
         /// <inheritdoc cref="IEquatable{T}.Equals(T)"/>
         public bool Equals(Card other)
         {
-            return string.Equals(this.seed, other.seed)
-                   && string.Equals(this.name, other.name)
-                   && this.ordinal == other.ordinal;
+            return string.Equals(Seed, other.Seed)
+                   && string.Equals(Name, other.Name)
+                   && Ordinal == other.Ordinal;
         }
 
         /// <inheritdoc cref="object.Equals(object?)"/>
-        public override bool Equals(object obj)
-        {
-            if (obj is null)
-            {
-                return false;
-            }
-
-            if (this == obj)
-            {
-                return true;
-            }
-
-            if (obj.GetType() != this.GetType())
-            {
-                return false;
-            }
-
-            return this.Equals(obj as Card);
-        }
+        public override bool Equals(object obj) => obj is Card card && Equals(card);
 
         /// <inheritdoc cref="object.GetHashCode"/>
         public override int GetHashCode()
         {
-            return HashCode.Combine(this.seed, this.name, this.ordinal);
+            return HashCode.Combine(Seed, Name, Ordinal);
         }
     }
 }
