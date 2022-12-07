@@ -30,9 +30,9 @@ namespace ComplexAlgebra
         public double Imaginary { get; private set; }
 
         public double Modulus => Math.Sqrt(Math.Pow(Real, 2) + Math.Pow(Imaginary, 2));
-        public double Phase => Math.Atan2(Real, Imaginary);
+        public double Phase => Math.Atan2(Imaginary, Real);
 
-        public Complex Complement => new Complex(-Real, -Imaginary);
+        public Complex Complement => new Complex(Real, -Imaginary);
 
         public Complex Plus(Complex c)
             => new Complex(this.Real + c.Real, this.Imaginary + c.Imaginary);
@@ -40,13 +40,23 @@ namespace ComplexAlgebra
         public Complex Minus(Complex c)
             => new Complex(this.Real - c.Real, this.Imaginary - c.Imaginary);
 
-        public override string ToString() 
-            => String.Format("{0}{1}", 
-                Real != 0 ? Real + " ": String.Empty,
-                String.Concat(
-                    (Imaginary != 0.0 ? 
-                    ((Math.Sign(Imaginary) < 0.0 ? "-": "+") + " " 
-                    + Math.Abs(Imaginary) + "i"): String.Empty)));
+        public override string ToString()
+        {
+            if ((Real == 0) && (Imaginary == 0))
+            {
+                return "0";
+            }
+            else if (Real == 0)
+            {
+                return Math.Abs(Imaginary) != 1 ? Imaginary + "i": Imaginary < 0 ? "-i": "i";
+            }
+            else if (Imaginary == 0)
+            {
+                return Real.ToString();
+            }
+            double imaginary = Math.Abs(Imaginary);
+            return Real + " " + (Math.Sign(Imaginary) < 0.0 ? "-": "+") + " " + (imaginary != 1 ? imaginary + "i": "i");
+        }
 
         public override bool Equals(object obj)
             => obj is Complex complex &&
@@ -54,6 +64,6 @@ namespace ComplexAlgebra
                    Imaginary == complex.Imaginary;
 
         public override int GetHashCode()
-            => HashCode.Combine(Real, Imaginary, Modulus, Phase, Complement);
+            => HashCode.Combine(Real, Imaginary);
     }
 }
