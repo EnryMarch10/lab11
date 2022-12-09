@@ -1,4 +1,6 @@
 using ComplexAlgebra;
+using System;
+using System.Collections.Generic;
 
 namespace Calculus
 {
@@ -24,9 +26,78 @@ namespace Calculus
     /// TODO: implement the calculator class in such a way that the Program below works as expected
     class Calculator
     {
+        private bool enabled;
+        private Complex _value;
+        private IList<Tuple<Complex, char>> _values = new List<Tuple<Complex, char>>();
+
+        public Complex Value
+        {
+            get => _value;
+            set
+            {
+                enabled = true;
+                _value = value;
+            }
+        }
+        public char Operation
+        {
+            set
+            {
+                if (enabled && (value.Equals(OperationPlus) || value.Equals(OperationMinus) || value.Equals(OperationEqual)))
+                {
+                    _values.Add(new Tuple<Complex, char>(_value, value));
+                    enabled = false;
+                }
+            }
+        }
+
+        public const char OperationEqual = '=';
         public const char OperationPlus = '+';
         public const char OperationMinus = '-';
 
-        // TODO fill this class
+        public void ComputeResult()
+        {
+            if ((_values.Count > 0) && _values[_values.Count - 1].Item2.Equals(OperationEqual))
+            {
+                _value = _values[0].Item1;
+                for(int i = 0; i < _values.Count - 1; i++)
+                {
+                    if (_values[i].Item2.Equals(OperationPlus))
+                    {
+                        _value = _value.Plus(_values[i + 1].Item1);
+                    }
+                    else
+                    {
+                        _value = _value.Minus(_values[i + 1].Item1);
+                    }
+                }
+                _values.Clear();
+                enabled = false;
+            }
+        }
+
+        public void Reset()
+        {
+            _values.Clear();
+            _value = null;
+            enabled = false;
+        }
+
+        public override string ToString()
+        {
+            if (enabled && (_value != null) && (_values.Count > 0))
+            {
+                return _value + ", " + _values[_values.Count - 1].Item2;
+            }
+            else if (_values.Count > 0)
+            {
+                return "null, " + _values[_values.Count - 1].Item2;
+            }
+            else if (_value != null)
+            {
+                return _value + ", null";
+            }
+            return "null, null";
+        }
     }
 }
