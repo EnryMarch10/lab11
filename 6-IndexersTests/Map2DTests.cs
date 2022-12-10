@@ -1,5 +1,6 @@
 namespace Indexers
 {
+    using System;
     using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -18,6 +19,7 @@ namespace Indexers
                 Enumerable.Range(1, 10),
                 Enumerable.Range(1, 10),
                 (i, j) => i * j);
+            Console.WriteLine(pitagoricTable.ToString());
         }
 
         [TestMethod]
@@ -25,8 +27,12 @@ namespace Indexers
         {
             for (int i = 1; i <= 10; i++)
             {
-                Assert.AreEqual(i * i, this.pitagoricTable[i, i]);
+                for (int j = 1; j <= 10; j++)
+                {
+                    Assert.AreEqual(i * j, this.pitagoricTable[i, j]);
+                }
             }
+            //Console.WriteLine(pitagoricTable.ToString());
         }
 
         [TestMethod]
@@ -36,6 +42,7 @@ namespace Indexers
             {
                 Assert.Fail("Wrong implementation");
             }
+            //Console.WriteLine(pitagoricTable.ToString());
         }
 
         [TestMethod]
@@ -45,6 +52,7 @@ namespace Indexers
             {
                 Assert.Fail("Wrong implementation");
             }
+            //Console.WriteLine(pitagoricTable.ToString());
         }
     }
 }
