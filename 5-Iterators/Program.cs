@@ -2,7 +2,6 @@ namespace Iterators
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     /// The runnable entrypoint of the exercise.
@@ -23,6 +22,46 @@ namespace Iterators
                 }
             }
 
+            // Console.WriteLine("exemple");
+            // new int[] {2, 4, 6, 3}
+            //     .SkipSome(2)
+            //     .ForEach(num => Console.Write(num.ToString() + ","));
+            // Console.WriteLine();
+            // Console.WriteLine();
+
+            Console.WriteLine("SkipSome(1)");
+            numbers
+                .SkipSome(1)
+                .ForEach(num => Console.Write(num.ToString() + ","));
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Console.WriteLine("TakeSome(" + (len - 2) + ")");
+            numbers
+                .TakeSome(len - 2)
+                .ForEach(num => Console.Write(num.ToString() + ","));
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Console.WriteLine("SkipSome(1) + TakeSome(" + (len - 2) + ")");
+            numbers
+                .SkipSome(1)
+                .TakeSome(len - 2)
+                .ForEach(num => Console.Write(num.ToString() + ","));
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Console.WriteLine("SkipSome(1) + TakeSome(" + (len - 2) + ") + Filtered");
+            numbers
+                .SkipSome(1)
+                .TakeSome(len - 2)
+                .Filter(optN => optN.HasValue)
+                .Map(optN => optN.Value)
+                .ForEach(num => Console.Write(num.ToString() + ","));
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Console.WriteLine("Actions:");
             IDictionary<int, int> occurrences = numbers
                 .Map(optN => {
                     Console.Write(optN.ToString() + ",");
@@ -43,14 +82,19 @@ namespace Iterators
                     }
 
                     return d;
-                });
+            });
 
             Console.WriteLine();
+            Console.WriteLine();
 
+            long count = 0;
             foreach (KeyValuePair<int, int> kv in occurrences)
             {
+                count += kv.Value;
                 Console.WriteLine(kv);
             }
+            Console.WriteLine();
+            Console.WriteLine("Total counted = " + count + " of " + len);
         }
     }
 }
