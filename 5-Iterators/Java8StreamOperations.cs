@@ -94,8 +94,17 @@ namespace Iterators
         /// <returns>the new sequence.</returns>
         public static TOther Reduce<TAny, TOther>(this IEnumerable<TAny> sequence, TOther seed, Func<TOther, TAny, TOther> reducer)
         {
-            foreach(TAny item in sequence) seed = reducer(seed, item);
-            return seed;
+            TOther accumulator = default;
+            IEnumerator<TAny> seq = sequence.GetEnumerator();
+            if (seq.MoveNext())
+            {
+                accumulator = reducer(seed, seq.Current);
+            }
+            while(seq.MoveNext())
+            {
+                accumulator = reducer(accumulator, seq.Current);
+            }
+            return accumulator;
         }
 
         /// <summary>
@@ -182,7 +191,7 @@ namespace Iterators
         /// <returns>an infinite sequence of integers.</returns>
         public static IEnumerable<int> Integers(int start)
         {
-            yield return start++;
+            while(true) yield return start++;
         }
 
         /// <summary>

@@ -83,5 +83,5 @@ Le implementazioni dell'interfaccia `IMap2D` permettono di memorizzare valori di
 Dato un oggetto `IMap<TKey1, TKey2, TValue> map` e due chiavi `k1` di tipo `TKey1` e `k2` di tipo `TKey2`, si accede al valore corrispondente con la sintassi `map[k1, k2]`.
 
 Scopo dell'esercizio è implementare la classe `Map2D<TKey1, TKey2, TValue>`.
-Il test contenuto nel progetto `2-IndexersTests` tenta di chiarire il comportamento atteso per una classe che implementi `IMap2D`.
+Il test contenuto nel progetto `6-IndexersTests` tenta di chiarire il comportamento atteso per una classe che implementi `IMap2D`.
 L'esercizio si può considerare concluso quando tutti i test terminano con successo.

@@ -38,7 +38,7 @@ namespace Indexers
         }
 
         /// <inheritdoc cref="IEquatable{T}.Equals(T)" />
-        public bool Equals(IMap2D<TKey1, TKey2, TValue> other) => GetElements().Equals(other.GetElements());
+        public bool Equals(IMap2D<TKey1, TKey2, TValue> other) => GetElements().Equals(other.GetElements()); // Non riesco a capire perchè non mi accetta map.Equals(other.map);
 
         /// <inheritdoc cref="object.Equals(object?)" />
         public override bool Equals(object obj) => obj is IMap2D<TKey1, TKey2, TValue> map && this.Equals(map);
